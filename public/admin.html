@@ -1,0 +1,486 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Painel Admin - AAFATI</title>
+  <meta name="theme-color" content="#14342b">
+  <meta name="robots" content="noindex">
+  <link rel="icon" href="/logo.jpg">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,600;0,700;1,600;1,700&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/css/style.css?v=3">
+</head>
+<body class="dashboard-body">
+
+<header class="dashboard-header">
+  <div class="container header-inner">
+    <a href="/" class="logo-area" style="text-decoration:none;color:white">
+      <img src="/logo.jpg" alt="Logo AAFATI" class="logo-img">
+      <div>
+        <div class="logo-title">AAFATI</div>
+        <div class="logo-sub" style="color:rgba(255,255,255,0.8)">Painel Administrativo</div>
+      </div>
+    </a>
+    <div class="header-user">
+      <span class="badge badge-admin">ADMIN</span>
+      <button class="btn btn-outline-white btn-sm" onclick="logout()">
+        <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" x2="9" y1="12" y2="12"/></svg>
+        Sair
+      </button>
+    </div>
+  </div>
+</header>
+
+<div class="dashboard-layout">
+  <aside class="sidebar">
+    <nav class="sidebar-nav">
+      <a href="#" class="sidebar-link active" onclick="switchTab('dashboard',this);return false">
+        <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="12" x2="12" y1="20" y2="10"/><line x1="18" x2="18" y1="20" y2="4"/><line x1="6" x2="6" y1="20" y2="16"/></svg>
+        Dashboard
+      </a>
+      <a href="#" class="sidebar-link" onclick="switchTab('membros',this);return false">
+        <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+        Membros
+      </a>
+      <a href="#" class="sidebar-link" onclick="switchTab('reunioes',this);return false">
+        <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 2v4"/><path d="M16 2v4"/><rect width="18" height="18" x="3" y="4" rx="2"/><path d="M3 10h18"/></svg>
+        Reuniões
+      </a>
+      <a href="#" class="sidebar-link" onclick="switchTab('beneficios',this);return false">
+        <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+        Benefícios
+      </a>
+      <a href="#" class="sidebar-link" onclick="switchTab('presencas',this);return false">
+        <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><path d="m9 11 3 3L22 4"/></svg>
+        Presenças
+      </a>
+    </nav>
+  </aside>
+
+  <main class="dashboard-main">
+
+    <!-- DASHBOARD -->
+    <div id="tab-dashboard" class="tab-content active">
+      <h2 class="page-title">Visão Geral</h2>
+      <div class="stats-cards" id="statsCards">
+        <div class="stats-card">
+          <span class="icon-badge">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+          </span>
+          <div class="sc-val" id="sc-total">--</div>
+          <div class="sc-label">Total de Membros</div>
+        </div>
+        <div class="stats-card">
+          <span class="icon-badge">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><path d="m9 11 3 3L22 4"/></svg>
+          </span>
+          <div class="sc-val" id="sc-ativos">--</div>
+          <div class="sc-label">Membros Ativos</div>
+        </div>
+        <div class="stats-card sc-alert">
+          <span class="icon-badge gold">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="8" cy="8" r="6"/><path d="M18.09 10.37A6 6 0 1 1 10.34 18"/><path d="M7 6h1v4"/><path d="m16.71 13.88.7.71-2.82 2.82"/></svg>
+          </span>
+          <div class="sc-val" id="sc-anuidades">--</div>
+          <div class="sc-label">Anuidades Pendentes</div>
+        </div>
+        <div class="stats-card sc-alert">
+          <span class="icon-badge gold">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+          </span>
+          <div class="sc-val" id="sc-beneficios">--</div>
+          <div class="sc-label">Benefícios Pendentes</div>
+        </div>
+        <div class="stats-card">
+          <span class="icon-badge">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 2v4"/><path d="M16 2v4"/><rect width="18" height="18" x="3" y="4" rx="2"/><path d="M3 10h18"/></svg>
+          </span>
+          <div class="sc-val" id="sc-reunioes">--</div>
+          <div class="sc-label">Reuniões Registradas</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- MEMBROS -->
+    <div id="tab-membros" class="tab-content">
+      <h2 class="page-title">Gerenciar Membros</h2>
+      <div class="dash-card">
+        <div class="table-toolbar">
+          <input type="text" id="searchMembro" placeholder="Buscar por nome, família ou região..." class="search-input" oninput="filterMembros()" aria-label="Buscar membros">
+        </div>
+        <div id="membros-table"><div class="loading">Carregando...</div></div>
+      </div>
+    </div>
+
+    <!-- REUNIÕES -->
+    <div id="tab-reunioes" class="tab-content">
+      <h2 class="page-title">Reuniões</h2>
+      <div class="dash-card">
+        <h3 class="card-title">Cadastrar Nova Reunião</h3>
+        <div id="alertReuniao" class="alert" style="display:none"></div>
+        <form id="formReuniao">
+          <div class="form-grid">
+            <div class="form-group form-full">
+              <label for="rTitulo">Título *</label>
+              <input type="text" name="titulo" required id="rTitulo" placeholder="Ex: Reunião Ordinária de Março">
+            </div>
+            <div class="form-group">
+              <label for="rData">Data *</label>
+              <input type="date" name="data" required id="rData">
+            </div>
+            <div class="form-group">
+              <label for="rHorario">Horário *</label>
+              <input type="time" name="horario" required id="rHorario">
+            </div>
+            <div class="form-group">
+              <label for="rLocal">Local</label>
+              <input type="text" name="local" id="rLocal" placeholder="Ex: Sede da AAFATI">
+            </div>
+            <div class="form-group form-full">
+              <label for="rDescricao">Descrição</label>
+              <textarea name="descricao" rows="3" id="rDescricao" placeholder="Pauta da reunião..."></textarea>
+            </div>
+          </div>
+          <button type="submit" class="btn btn-primary" style="margin-top:18px">Cadastrar Reunião</button>
+        </form>
+      </div>
+      <div class="dash-card">
+        <h3 class="card-title">Reuniões Cadastradas</h3>
+        <div id="reunioes-list"><div class="loading">Carregando...</div></div>
+      </div>
+    </div>
+
+    <!-- BENEFÍCIOS -->
+    <div id="tab-beneficios" class="tab-content">
+      <h2 class="page-title">Solicitações de Benefícios</h2>
+      <div class="dash-card">
+        <div id="beneficios-admin-list"><div class="loading">Carregando...</div></div>
+      </div>
+    </div>
+
+    <!-- PRESENÇAS -->
+    <div id="tab-presencas" class="tab-content">
+      <h2 class="page-title">Registrar Presenças</h2>
+      <div class="dash-card">
+        <h3 class="card-title">Selecionar Reunião</h3>
+        <div class="form-group">
+          <select id="selectReuniaoPresenca" onchange="loadPresencaForm()" aria-label="Selecionar reunião">
+            <option value="">Selecione uma reunião...</option>
+          </select>
+        </div>
+      </div>
+      <div id="presenca-form-area"></div>
+    </div>
+
+  </main>
+</div>
+
+<!-- Modal Benefício -->
+<div id="modalBeneficio" class="modal" style="display:none">
+  <div class="modal-overlay" onclick="closeModal()"></div>
+  <div class="modal-box">
+    <div class="modal-header">
+      <h3>Responder Solicitação</h3>
+      <button onclick="closeModal()" class="modal-close" aria-label="Fechar">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="18" height="18" aria-hidden="true"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>
+      </button>
+    </div>
+    <form id="formRespondeBeneficio">
+      <input type="hidden" name="beneficio_id">
+      <div class="form-grid">
+        <div class="form-group">
+          <label for="mData">Data Agendada</label>
+          <input type="date" name="data_agendada" id="mData">
+        </div>
+        <div class="form-group">
+          <label for="mHorario">Horário</label>
+          <input type="time" name="horario_agendado" id="mHorario">
+        </div>
+        <div class="form-group">
+          <label for="mTaxa">Taxa (R$) — deixe 0 se isento</label>
+          <input type="number" name="taxa" value="0" min="0" step="0.01" id="mTaxa">
+        </div>
+        <div class="form-group">
+          <label for="mStatusTaxa">Status da Taxa</label>
+          <select name="status_taxa" id="mStatusTaxa">
+            <option value="isento">Isento</option>
+            <option value="pendente">Pendente de Pagamento</option>
+            <option value="pago">Já Pago</option>
+          </select>
+        </div>
+        <div class="form-group form-full">
+          <label for="mStatus">Status do Benefício</label>
+          <select name="status" id="mStatus">
+            <option value="pendente">Pendente</option>
+            <option value="aprovado">Aprovado</option>
+            <option value="negado">Negado</option>
+            <option value="concluido">Concluído</option>
+          </select>
+        </div>
+        <div class="form-group form-full">
+          <label for="mObs">Observação / Resposta para o membro</label>
+          <textarea name="observacao_admin" rows="3" id="mObs"></textarea>
+        </div>
+      </div>
+      <div style="display:flex;gap:1rem;justify-content:flex-end;margin-top:20px">
+        <button type="button" class="btn btn-outline" onclick="closeModal()">Cancelar</button>
+        <button type="submit" class="btn btn-primary">Salvar Resposta</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<script>
+const token = localStorage.getItem('token');
+const userRole = localStorage.getItem('userRole');
+if (!token || userRole !== 'admin') window.location.href = '/login.html';
+const headers = { 'Authorization': `Bearer ${token}`, 'Content-Type': 'application/json' };
+
+// Ícones SVG reutilizados nos templates
+const ICO = {
+  family: '<svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>',
+  pin: '<svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg>',
+  clock: '<svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>',
+  calendar: '<svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 2v4"/><path d="M16 2v4"/><rect width="18" height="18" x="3" y="4" rx="2"/><path d="M3 10h18"/></svg>',
+  coins: '<svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="8" cy="8" r="6"/><path d="M18.09 10.37A6 6 0 1 1 10.34 18"/><path d="M7 6h1v4"/><path d="m16.71 13.88.7.71-2.82 2.82"/></svg>',
+  chat: '<svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7.9 20A9 9 0 1 0 4 16.1L2 22Z"/></svg>'
+};
+
+function logout() { localStorage.clear(); window.location.href = '/login.html'; }
+
+function switchTab(tab, el) {
+  document.querySelectorAll('.tab-content').forEach(t => t.classList.remove('active'));
+  document.querySelectorAll('.sidebar-link').forEach(l => l.classList.remove('active'));
+  document.getElementById('tab-' + tab).classList.add('active');
+  el.classList.add('active');
+  if (tab === 'membros') loadMembros();
+  if (tab === 'reunioes') loadReunioes();
+  if (tab === 'beneficios') loadBeneficiosAdmin();
+  if (tab === 'presencas') loadPresencaOptions();
+  return false;
+}
+
+function fmtDate(d) {
+  if (!d) return '--';
+  const [y,m,day] = d.split('-');
+  return `${day}/${m}/${y}`;
+}
+
+// Dashboard
+async function loadDashboard() {
+  const r = await fetch('/api/admin/stats', { headers });
+  const d = await r.json();
+  document.getElementById('sc-total').textContent = d.total;
+  document.getElementById('sc-ativos').textContent = d.ativos;
+  document.getElementById('sc-anuidades').textContent = d.anuidades_pendentes;
+  document.getElementById('sc-beneficios').textContent = d.beneficios_pendentes;
+  document.getElementById('sc-reunioes').textContent = d.reunioes;
+}
+
+// Membros
+let allMembros = [];
+async function loadMembros() {
+  const r = await fetch('/api/admin/membros', { headers });
+  allMembros = await r.json();
+  renderMembros(allMembros);
+}
+
+function filterMembros() {
+  const q = document.getElementById('searchMembro').value.toLowerCase();
+  const filtered = allMembros.filter(m =>
+    m.nome.toLowerCase().includes(q) || m.familia.toLowerCase().includes(q) || m.regiao.toLowerCase().includes(q)
+  );
+  renderMembros(filtered);
+}
+
+function renderMembros(list) {
+  const el = document.getElementById('membros-table');
+  if (!list.length) { el.innerHTML = '<p class="empty-msg">Nenhum membro encontrado.</p>'; return; }
+  el.innerHTML = `
+    <div class="table-wrap">
+    <table class="data-table">
+      <thead><tr><th>Nome</th><th>CPF</th><th>Família</th><th>Região</th><th>Inscrição</th><th>Status</th><th>Ações</th></tr></thead>
+      <tbody>
+        ${list.map(m => `
+          <tr>
+            <td>${m.nome}</td>
+            <td>${m.cpf}</td>
+            <td>${m.familia}</td>
+            <td>${m.regiao}</td>
+            <td>${fmtDate(m.data_inscricao)}</td>
+            <td><span class="badge badge-${m.status === 'ativo' ? 'success' : 'warning'}">${m.status}</span></td>
+            <td><a href="/membro.html?id=${m.id}" class="btn btn-sm btn-outline" target="_blank">Ver Perfil</a></td>
+          </tr>
+        `).join('')}
+      </tbody>
+    </table>
+    </div>`;
+}
+
+// Reuniões
+async function loadReunioes() {
+  const r = await fetch('/api/reunioes', { headers });
+  const list = await r.json();
+  const el = document.getElementById('reunioes-list');
+  if (!list.length) { el.innerHTML = '<p class="empty-msg">Nenhuma reunião cadastrada.</p>'; return; }
+  el.innerHTML = `
+    <div class="table-wrap">
+    <table class="data-table">
+      <thead><tr><th>Título</th><th>Data</th><th>Horário</th><th>Local</th></tr></thead>
+      <tbody>
+        ${list.map(r => `
+          <tr>
+            <td>${r.titulo}</td>
+            <td>${fmtDate(r.data)}</td>
+            <td>${r.horario}</td>
+            <td>${r.local || '--'}</td>
+          </tr>
+        `).join('')}
+      </tbody>
+    </table>
+    </div>`;
+}
+
+document.getElementById('formReuniao').addEventListener('submit', async function(e) {
+  e.preventDefault();
+  const al = document.getElementById('alertReuniao');
+  const data = Object.fromEntries(new FormData(this));
+  const resp = await fetch('/api/reunioes', { method: 'POST', headers, body: JSON.stringify(data) });
+  if (resp.ok) {
+    al.className = 'alert alert-success'; al.textContent = 'Reunião cadastrada!'; al.style.display = 'block';
+    this.reset(); loadReunioes();
+  } else {
+    al.className = 'alert alert-danger'; al.textContent = 'Erro ao cadastrar.'; al.style.display = 'block';
+  }
+});
+
+// Benefícios Admin
+async function loadBeneficiosAdmin() {
+  const r = await fetch('/api/admin/beneficios', { headers });
+  const list = await r.json();
+  const el = document.getElementById('beneficios-admin-list');
+  if (!list.length) { el.innerHTML = '<p class="empty-msg">Nenhuma solicitação.</p>'; return; }
+  const statusColors = { pendente: 'warning', aprovado: 'success', negado: 'danger', concluido: 'info' };
+  el.innerHTML = list.map(b => `
+    <div class="beneficio-card status-${b.status}">
+      <div class="beneficio-header">
+        <div>
+          <strong>${b.membro_nome}</strong> — <em>${b.tipo}</em>
+          <span class="badge badge-${statusColors[b.status]}">${b.status.toUpperCase()}</span>
+          <small class="text-muted">${ICO.family} ${b.familia} | ${ICO.pin} ${b.regiao}</small>
+        </div>
+        <small>${fmtDate(b.data_solicitacao)}</small>
+      </div>
+      <p class="beneficio-desc">${b.descricao}</p>
+      ${b.data_agendada ? `<div class="beneficio-agenda"><span>${ICO.calendar} ${fmtDate(b.data_agendada)}</span> <span>${ICO.clock} ${b.horario_agendado || '--'}</span></div>` : ''}
+      ${b.taxa > 0 ? `<div class="taxa-info">${ICO.coins} Taxa: R$ ${parseFloat(b.taxa).toFixed(2)} — <span class="badge badge-${b.status_taxa === 'pago' ? 'success' : 'warning'}">${b.status_taxa}</span></div>` : ''}
+      ${b.observacao_admin ? `<div class="obs-admin">${ICO.chat} ${b.observacao_admin}</div>` : ''}
+      <button class="btn btn-sm btn-primary" style="margin-top:10px" onclick="openModal(${b.id}, '${b.status}', '${b.data_agendada || ''}', '${b.horario_agendado || ''}', ${b.taxa || 0}, '${b.status_taxa}', '${(b.observacao_admin || '').replace(/'/g, "\\'")}')">
+        Responder / Atualizar
+      </button>
+    </div>
+  `).join('');
+}
+
+function openModal(id, status, data, horario, taxa, statusTaxa, obs) {
+  const f = document.getElementById('formRespondeBeneficio');
+  f.beneficio_id.value = id;
+  f.data_agendada.value = data;
+  f.horario_agendado.value = horario;
+  f.taxa.value = taxa;
+  f.status_taxa.value = statusTaxa;
+  f.status.value = status;
+  f.observacao_admin.value = obs;
+  document.getElementById('modalBeneficio').style.display = 'flex';
+}
+
+function closeModal() {
+  document.getElementById('modalBeneficio').style.display = 'none';
+}
+
+document.getElementById('formRespondeBeneficio').addEventListener('submit', async function(e) {
+  e.preventDefault();
+  const data = Object.fromEntries(new FormData(this));
+  const id = data.beneficio_id;
+  delete data.beneficio_id;
+  const resp = await fetch(`/api/beneficios/${id}`, { method: 'PUT', headers, body: JSON.stringify(data) });
+  if (resp.ok) { closeModal(); loadBeneficiosAdmin(); }
+});
+
+// Presenças
+let reunioesAll = [];
+let membrosAll = [];
+async function loadPresencaOptions() {
+  [reunioesAll, membrosAll] = await Promise.all([
+    fetch('/api/reunioes', { headers }).then(r => r.json()),
+    fetch('/api/admin/membros', { headers }).then(r => r.json())
+  ]);
+  const sel = document.getElementById('selectReuniaoPresenca');
+  sel.innerHTML = '<option value="">Selecione uma reunião...</option>';
+  reunioesAll.forEach(r => {
+    const opt = document.createElement('option');
+    opt.value = r.id; opt.textContent = `${r.titulo} — ${fmtDate(r.data)}`;
+    sel.appendChild(opt);
+  });
+}
+
+async function loadPresencaForm() {
+  const reuniaoId = document.getElementById('selectReuniaoPresenca').value;
+  const el = document.getElementById('presenca-form-area');
+  if (!reuniaoId) { el.innerHTML = ''; return; }
+
+  const reuniao = reunioesAll.find(r => r.id == reuniaoId);
+  const presResp = await fetch(`/api/admin/membros`, { headers });
+  const mems = await presResp.json();
+
+  el.innerHTML = `
+    <div class="dash-card">
+      <h3 class="card-title">Presenças — ${reuniao.titulo}</h3>
+      <div id="alertPresenca" class="alert" style="display:none"></div>
+      <form id="formPresencas">
+        <div class="table-wrap">
+        <table class="data-table">
+          <thead><tr><th>Nome</th><th>Família</th><th>Região</th><th>Presente</th></tr></thead>
+          <tbody>
+            ${mems.map(m => `
+              <tr>
+                <td>${m.nome}</td>
+                <td>${m.familia}</td>
+                <td>${m.regiao}</td>
+                <td>
+                  <label class="toggle-switch">
+                    <input type="checkbox" name="presenca_${m.id}" class="presenca-check">
+                    <span class="toggle-slider"></span>
+                  </label>
+                </td>
+              </tr>
+            `).join('')}
+          </tbody>
+        </table>
+        </div>
+        <button type="submit" class="btn btn-primary" style="margin-top:1rem">Salvar Presenças</button>
+      </form>
+    </div>`;
+
+  document.getElementById('formPresencas').addEventListener('submit', async function(e) {
+    e.preventDefault();
+    const al = document.getElementById('alertPresenca');
+    const checks = document.querySelectorAll('.presenca-check');
+    const promises = Array.from(checks).map(c => {
+      const memId = c.name.replace('presenca_', '');
+      return fetch('/api/presencas', {
+        method: 'POST', headers,
+        body: JSON.stringify({ membro_id: parseInt(memId), reuniao_id: parseInt(reuniaoId), presente: c.checked })
+      });
+    });
+    await Promise.all(promises);
+    al.className = 'alert alert-success'; al.textContent = 'Presenças salvas com sucesso!'; al.style.display = 'block';
+  });
+}
+
+loadDashboard();
+</script>
+</body>
+</html>

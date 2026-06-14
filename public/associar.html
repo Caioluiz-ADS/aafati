@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Associar-se - AAFATI</title>
+  <meta name="description" content="Associe-se à AAFATI e acesse assistência técnica, capacitação, crédito rural e outros benefícios para a sua família produtora em Itanagra-BA.">
+  <meta name="theme-color" content="#14342b">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Associe-se à AAFATI">
+  <meta property="og:description" content="Faça parte da associação de agricultura familiar de Itanagra. Cadastro gratuito.">
+  <meta property="og:locale" content="pt_BR">
+  <link rel="icon" href="/logo.jpg">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,600;0,700;1,600;1,700&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/css/style.css?v=3">
+</head>
+<body>
+
+<header class="header">
+  <div class="container header-inner">
+    <a href="/" class="logo-area" style="text-decoration:none;color:inherit">
+      <img src="/logo.jpg" alt="Logo AAFATI" class="logo-img">
+      <div>
+        <div class="logo-title">AAFATI</div>
+        <div class="logo-sub">Associação de Agricultura Familiar e Avanço Tecnológico de Itanagra</div>
+      </div>
+    </a>
+    <nav class="nav" id="nav">
+      <a href="/">Início</a>
+      <a href="/login.html" class="btn btn-primary btn-sm">Entrar</a>
+    </nav>
+    <button class="menu-toggle" aria-label="Abrir menu" aria-expanded="false" aria-controls="nav">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" width="22" height="22" aria-hidden="true"><line x1="4" x2="20" y1="6" y2="6"/><line x1="4" x2="20" y1="12" y2="12"/><line x1="4" x2="20" y1="18" y2="18"/></svg>
+    </button>
+  </div>
+</header>
+
+<div class="page-hero-sm">
+  <div class="container">
+    <h1>Associe-se à AAFATI</h1>
+    <p>Preencha o formulário abaixo e faça parte da nossa família</p>
+  </div>
+</div>
+
+<div class="container form-page">
+  <div class="form-card">
+    <div id="alertBox" class="alert" style="display:none"></div>
+
+    <form id="formAssociar">
+      <h3 class="form-section-title">
+        <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+        Dados Pessoais
+      </h3>
+      <div class="form-grid">
+        <div class="form-group">
+          <label for="fNome">Nome Completo *</label>
+          <input type="text" id="fNome" name="nome" required placeholder="Seu nome completo" autocomplete="name">
+        </div>
+        <div class="form-group">
+          <label for="fCpf">RG/CPF *</label>
+          <input type="text" id="fCpf" name="cpf" required placeholder="Número do RG ou CPF" maxlength="20">
+        </div>
+        <div class="form-group">
+          <label for="fCaf">CAF <span style="font-weight:400;color:var(--ink-mute)">(opcional)</span></label>
+          <input type="text" id="fCaf" name="rg" placeholder="Número do CAF">
+        </div>
+        <div class="form-group">
+          <label for="fNascimento">Data de Nascimento</label>
+          <input type="date" id="fNascimento" name="data_nascimento" autocomplete="bday">
+        </div>
+        <div class="form-group">
+          <label for="fTelefone">Telefone / WhatsApp</label>
+          <input type="tel" id="fTelefone" name="telefone" placeholder="(00) 9 0000-0000" autocomplete="tel">
+        </div>
+        <div class="form-group">
+          <label for="fEmail">E-mail *</label>
+          <input type="email" id="fEmail" name="email" required placeholder="seu@email.com" autocomplete="email">
+        </div>
+      </div>
+
+      <h3 class="form-section-title">
+        <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+        Localização
+      </h3>
+      <div class="form-grid">
+        <div class="form-group">
+          <label for="fFamilia">Nome da Família *</label>
+          <input type="text" id="fFamilia" name="familia" required placeholder="Ex: Família Silva">
+        </div>
+        <div class="form-group">
+          <label for="selectRegiao">Região *</label>
+          <select name="regiao" required id="selectRegiao">
+            <option value="">Selecione sua região...</option>
+          </select>
+        </div>
+        <div class="form-group form-full">
+          <label for="fEndereco">Endereço Completo</label>
+          <input type="text" id="fEndereco" name="endereco" placeholder="Rua, número, complemento, bairro" autocomplete="street-address">
+        </div>
+      </div>
+
+      <h3 class="form-section-title">
+        <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect width="18" height="11" x="3" y="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+        Acesso ao Sistema
+      </h3>
+      <div class="form-grid">
+        <div class="form-group">
+          <label for="fSenha">Senha *</label>
+          <input type="password" id="fSenha" name="senha" required placeholder="Mínimo 6 caracteres" minlength="6" autocomplete="new-password">
+        </div>
+        <div class="form-group">
+          <label for="fConfirmar">Confirmar Senha *</label>
+          <input type="password" id="fConfirmar" name="confirmar_senha" required placeholder="Repita a senha" autocomplete="new-password">
+        </div>
+      </div>
+
+      <div class="form-group" style="margin-top:20px">
+        <label class="checkbox-label">
+          <input type="checkbox" name="termos" required>
+          <span>Declaro que li e aceito o <a href="#" style="color:var(--green);font-weight:600">estatuto da AAFATI</a> e concordo com os termos de associação.</span>
+        </label>
+      </div>
+
+      <div class="anuidade-info">
+        <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4"/><path d="M12 8h.01"/></svg>
+        <span><strong>Anuidade 2026:</strong> R$ 50,00 — O pagamento será combinado com a secretaria após aprovação do cadastro.</span>
+      </div>
+
+      <button type="submit" class="btn btn-primary btn-lg btn-full" id="btnSubmit">
+        Enviar Cadastro
+        <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+      </button>
+    </form>
+  </div>
+</div>
+
+<footer class="footer">
+  <div class="footer-bottom">
+    <p>&copy; 2026 AAFATI — Todos os direitos reservados | <a href="/">Voltar ao início</a></p>
+  </div>
+</footer>
+
+<a class="whats-fab" href="https://wa.me/5571991196682?text=Ol%C3%A1!%20Preciso%20de%20ajuda%20com%20o%20cadastro%20na%20AAFATI." target="_blank" rel="noopener" aria-label="Falar com a AAFATI no WhatsApp">
+  <svg viewBox="0 0 24 24" width="30" height="30" fill="currentColor" aria-hidden="true"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413Z"/></svg>
+</a>
+
+<script src="/js/site.js"></script>
+<script>
+  fetch('/api/regioes').then(r => r.json()).then(regioes => {
+    const sel = document.getElementById('selectRegiao');
+    regioes.forEach(r => {
+      const opt = document.createElement('option');
+      opt.value = r; opt.textContent = r;
+      sel.appendChild(opt);
+    });
+  });
+
+  const cpfInput = document.querySelector('input[name="cpf"]');
+  cpfInput.addEventListener('input', function() {
+    let v = this.value.replace(/\D/g, '');
+    v = v.replace(/(\d{3})(\d)/, '$1.$2');
+    v = v.replace(/(\d{3})(\d)/, '$1.$2');
+    v = v.replace(/(\d{3})(\d{1,2})$/, '$1-$2');
+    this.value = v;
+  });
+
+  document.getElementById('formAssociar').addEventListener('submit', async function(e) {
+    e.preventDefault();
+    const btn = document.getElementById('btnSubmit');
+    const alert = document.getElementById('alertBox');
+    const data = Object.fromEntries(new FormData(this));
+
+    if (data.senha !== data.confirmar_senha) {
+      alert.className = 'alert alert-danger';
+      alert.textContent = 'As senhas não coincidem!';
+      alert.style.display = 'block';
+      return;
+    }
+
+    btn.disabled = true;
+    btn.textContent = 'Enviando...';
+
+    try {
+      const resp = await fetch('/api/membros', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(data)
+      });
+      const result = await resp.json();
+      if (resp.ok) {
+        alert.className = 'alert alert-success';
+        alert.innerHTML = `<strong>Cadastro realizado com sucesso!</strong><br>
+          Bem-vindo(a) à AAFATI! Seu cadastro está sendo analisado pela secretaria.<br>
+          <a href="/login.html" style="color:inherit;font-weight:600">Clique aqui para fazer login</a>`;
+        alert.style.display = 'block';
+        this.reset();
+        window.scrollTo(0, 0);
+      } else {
+        alert.className = 'alert alert-danger';
+        alert.textContent = result.error || 'Erro ao realizar cadastro';
+        alert.style.display = 'block';
+      }
+    } catch {
+      alert.className = 'alert alert-danger';
+      alert.textContent = 'Erro de conexão. Tente novamente.';
+      alert.style.display = 'block';
+    }
+    btn.disabled = false;
+    btn.textContent = 'Enviar Cadastro';
+  });
+</script>
+</body>
+</html>

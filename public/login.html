@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Login - AAFATI</title>
+  <meta name="theme-color" content="#14342b">
+  <meta name="robots" content="noindex">
+  <link rel="icon" href="/logo.jpg">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,600;0,700;1,600;1,700&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/css/style.css?v=3">
+</head>
+<body class="login-page">
+
+<div class="login-container">
+  <div class="login-brand">
+    <img src="/logo.jpg" alt="Logo AAFATI" class="logo-img">
+    <h2>AAFATI</h2>
+    <p>Associação de Agricultura Familiar e<br>Avanço Tecnológico de Itanagra</p>
+  </div>
+
+  <div class="login-card">
+    <h3>Entrar na sua conta</h3>
+    <div id="alertBox" class="alert" style="display:none"></div>
+
+    <form id="formLogin">
+      <div class="form-group">
+        <label for="emailInput">E-mail</label>
+        <input type="email" id="emailInput" name="email" required placeholder="seu@email.com" autocomplete="email" autofocus>
+      </div>
+      <div class="form-group">
+        <label for="pwInput">Senha</label>
+        <div class="input-pw">
+          <input type="password" name="senha" required placeholder="Sua senha" id="pwInput" autocomplete="current-password">
+          <button type="button" onclick="togglePw()" class="pw-toggle" aria-label="Mostrar ou ocultar senha">
+            <svg id="iconEye" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="20" height="20" aria-hidden="true"><path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7Z"/><circle cx="12" cy="12" r="3"/></svg>
+            <svg id="iconEyeOff" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="20" height="20" aria-hidden="true" style="display:none"><path d="M9.88 9.88a3 3 0 1 0 4.24 4.24"/><path d="M10.73 5.08A10.43 10.43 0 0 1 12 5c7 0 10 7 10 7a13.16 13.16 0 0 1-1.67 2.68"/><path d="M6.61 6.61A13.526 13.526 0 0 0 2 12s3 7 10 7a9.74 9.74 0 0 0 5.39-1.61"/><line x1="2" x2="22" y1="2" y2="22"/></svg>
+          </button>
+        </div>
+      </div>
+      <button type="submit" class="btn btn-primary btn-full btn-lg" id="btnLogin">Entrar</button>
+    </form>
+
+    <div class="login-links">
+      <a href="/associar.html">Ainda não tem conta? <strong style="color:var(--green)">Associe-se</strong></a>
+    </div>
+  </div>
+
+  <a href="/" class="back-link">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="16" height="16" aria-hidden="true"><path d="m12 19-7-7 7-7"/><path d="M19 12H5"/></svg>
+    Voltar ao site
+  </a>
+</div>
+
+<script>
+  function togglePw() {
+    const inp = document.getElementById('pwInput');
+    const show = inp.type === 'password';
+    inp.type = show ? 'text' : 'password';
+    document.getElementById('iconEye').style.display = show ? 'none' : 'block';
+    document.getElementById('iconEyeOff').style.display = show ? 'block' : 'none';
+  }
+
+  document.getElementById('formLogin').addEventListener('submit', async function(e) {
+    e.preventDefault();
+    const btn = document.getElementById('btnLogin');
+    const alert = document.getElementById('alertBox');
+    const data = Object.fromEntries(new FormData(this));
+
+    btn.disabled = true;
+    btn.textContent = 'Entrando...';
+
+    try {
+      const resp = await fetch('/api/login', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email: data.email, senha: data.senha })
+      });
+      const result = await resp.json();
+      if (resp.ok) {
+        localStorage.setItem('token', result.token);
+        localStorage.setItem('userId', result.id);
+        localStorage.setItem('userRole', result.role);
+        localStorage.setItem('userName', result.nome);
+        if (result.role === 'admin') {
+          window.location.href = '/admin.html';
+        } else {
+          window.location.href = `/membro.html?id=${result.id}`;
+        }
+      } else {
+        alert.className = 'alert alert-danger';
+        alert.textContent = result.error || 'Erro ao fazer login';
+        alert.style.display = 'block';
+        btn.disabled = false;
+        btn.textContent = 'Entrar';
+      }
+    } catch {
+      alert.className = 'alert alert-danger';
+      alert.textContent = 'Erro de conexão. Tente novamente.';
+      alert.style.display = 'block';
+      btn.disabled = false;
+      btn.textContent = 'Entrar';
+    }
+  });
+</script>
+</body>
+</html>

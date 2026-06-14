@@ -1,0 +1,15 @@
+{
+  "name": "aafati",
+  "version": "1.0.0",
+  "description": "Associação de Agricultura Familiar e Avanço Tecnológico de Itanagra",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node server.js"
+  },
+  "dependencies": {
+    "express": "^4.18.2",
+    "bcryptjs": "^2.4.3",
+    "jsonwebtoken": "^9.0.2"
+  }
+}

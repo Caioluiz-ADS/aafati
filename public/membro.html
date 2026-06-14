@@ -1,0 +1,492 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Área do Membro - AAFATI</title>
+  <meta name="theme-color" content="#14342b">
+  <meta name="robots" content="noindex">
+  <link rel="icon" href="/logo.jpg">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,600;0,700;1,600;1,700&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/css/style.css?v=3">
+</head>
+<body class="dashboard-body">
+
+<header class="dashboard-header">
+  <div class="container header-inner">
+    <a href="/" class="logo-area" style="text-decoration:none;color:white">
+      <img src="/logo.jpg" alt="Logo AAFATI" class="logo-img">
+      <div>
+        <div class="logo-title">AAFATI</div>
+        <div class="logo-sub" style="color:rgba(255,255,255,0.8)">Área do Membro</div>
+      </div>
+    </a>
+    <div class="header-user">
+      <span id="headerNome">Carregando...</span>
+      <button class="btn btn-outline-white btn-sm" onclick="logout()">
+        <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" x2="9" y1="12" y2="12"/></svg>
+        Sair
+      </button>
+    </div>
+  </div>
+</header>
+
+<div class="dashboard-layout">
+  <aside class="sidebar">
+    <nav class="sidebar-nav">
+      <a href="#" class="sidebar-link active" data-tab="perfil" onclick="switchTab('perfil',this);return false">
+        <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+        Meus Dados
+      </a>
+      <a href="#" class="sidebar-link" data-tab="anuidade" onclick="switchTab('anuidade',this);return false">
+        <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12V7H5a2 2 0 0 1 0-4h14v4"/><path d="M3 5v14a2 2 0 0 0 2 2h16v-5"/><path d="M18 12a2 2 0 0 0 0 4h4v-4Z"/></svg>
+        Anuidade
+      </a>
+      <a href="#" class="sidebar-link" data-tab="reunioes" onclick="switchTab('reunioes',this);return false">
+        <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 2v4"/><path d="M16 2v4"/><rect width="18" height="18" x="3" y="4" rx="2"/><path d="M3 10h18"/></svg>
+        Reuniões / Presenças
+      </a>
+      <a href="#" class="sidebar-link" data-tab="beneficios" onclick="switchTab('beneficios',this);return false">
+        <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+        Benefícios
+      </a>
+    </nav>
+  </aside>
+
+  <main class="dashboard-main">
+
+    <!-- TAB: PERFIL -->
+    <div id="tab-perfil" class="tab-content active">
+      <div class="dash-card">
+        <div class="member-profile-header">
+          <div class="member-avatar" id="memberAvatar">?</div>
+          <div class="member-info-top">
+            <h2 id="memberNome">--</h2>
+            <div class="member-tags">
+              <span class="tag tag-green" id="memberFamilia">--</span>
+              <span class="tag tag-blue" id="memberRegiao">--</span>
+              <span class="tag tag-status" id="memberStatus">--</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="dash-card">
+        <h3 class="card-title">Dados de Inscrição</h3>
+        <div id="alertPerfil" class="alert" style="display:none"></div>
+        <form id="formPerfil">
+          <div class="form-grid">
+            <div class="form-group">
+              <label for="pNome">Nome Completo *</label>
+              <input type="text" name="nome" required id="pNome">
+            </div>
+            <div class="form-group">
+              <label for="pCpf">CPF</label>
+              <input type="text" id="pCpf" disabled class="input-disabled">
+            </div>
+            <div class="form-group">
+              <label for="pRg">RG</label>
+              <input type="text" name="rg" id="pRg">
+            </div>
+            <div class="form-group">
+              <label for="pNascimento">Data de Nascimento</label>
+              <input type="date" name="data_nascimento" id="pNascimento">
+            </div>
+            <div class="form-group">
+              <label for="pTelefone">Telefone</label>
+              <input type="tel" name="telefone" id="pTelefone">
+            </div>
+            <div class="form-group">
+              <label for="pEmail">E-mail</label>
+              <input type="email" id="pEmail" disabled class="input-disabled">
+            </div>
+            <div class="form-group">
+              <label for="pFamilia">Nome da Família *</label>
+              <input type="text" name="familia" required id="pFamilia">
+            </div>
+            <div class="form-group">
+              <label for="pRegiao">Região *</label>
+              <select name="regiao" required id="pRegiao"></select>
+            </div>
+            <div class="form-group form-full">
+              <label for="pEndereco">Endereço</label>
+              <input type="text" name="endereco" id="pEndereco">
+            </div>
+          </div>
+          <div class="form-group" style="margin-top:18px">
+            <label for="pDataInscricao">Data de Inscrição</label>
+            <input type="text" id="pDataInscricao" disabled class="input-disabled">
+          </div>
+          <button type="submit" class="btn btn-primary" style="margin-top:18px">Salvar Alterações</button>
+        </form>
+      </div>
+    </div>
+
+    <!-- TAB: ANUIDADE -->
+    <div id="tab-anuidade" class="tab-content">
+      <div class="dash-card">
+        <h3 class="card-title">Pagamento de Anuidade</h3>
+        <p class="card-desc">A anuidade garante seus direitos como membro ativo da AAFATI. Valor: <strong>R$ 50,00/ano</strong></p>
+        <div id="alertAnuidade" class="alert" style="display:none"></div>
+        <div id="anuidades-list">
+          <div class="loading">Carregando...</div>
+        </div>
+      </div>
+
+      <div class="dash-card">
+        <h3 class="card-title">Como Pagar</h3>
+        <div class="payment-methods">
+          <div class="payment-method">
+            <span class="icon-badge">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="3" x2="21" y1="22" y2="22"/><line x1="6" x2="6" y1="18" y2="11"/><line x1="10" x2="10" y1="18" y2="11"/><line x1="14" x2="14" y1="18" y2="11"/><line x1="18" x2="18" y1="18" y2="11"/><polygon points="12 2 20 7 4 7"/></svg>
+            </span>
+            <div>
+              <strong>Transferência / PIX</strong>
+              <p>Chave PIX: <code>secretaria@aafati.org</code><br>
+              Após o pagamento, registre abaixo e apresente o comprovante na secretaria.</p>
+            </div>
+          </div>
+          <div class="payment-method">
+            <span class="icon-badge">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect width="16" height="20" x="4" y="2" rx="2" ry="2"/><path d="M9 22v-4h6v4"/><path d="M8 6h.01"/><path d="M16 6h.01"/><path d="M12 6h.01"/><path d="M12 10h.01"/><path d="M12 14h.01"/><path d="M16 10h.01"/><path d="M16 14h.01"/><path d="M8 10h.01"/><path d="M8 14h.01"/></svg>
+            </span>
+            <div>
+              <strong>Pagamento Presencial</strong>
+              <p>Compareça à sede da associação de segunda a sexta, das 8h às 17h.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- TAB: REUNIÕES -->
+    <div id="tab-reunioes" class="tab-content">
+      <div class="dash-card">
+        <h3 class="card-title">Histórico de Reuniões e Presenças</h3>
+        <p class="card-desc">Acompanhe sua participação nas reuniões da associação.</p>
+        <div id="presencas-list">
+          <div class="loading">Carregando...</div>
+        </div>
+      </div>
+
+      <div class="dash-card">
+        <h3 class="card-title">Próximas Reuniões</h3>
+        <div id="reunioes-proximas">
+          <div class="loading">Carregando...</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- TAB: BENEFÍCIOS -->
+    <div id="tab-beneficios" class="tab-content">
+      <div class="dash-card">
+        <h3 class="card-title">Solicitar Benefício</h3>
+        <p class="card-desc">Solicite assistência técnica, capacitação, apoio documental e outros benefícios.</p>
+        <div id="alertBeneficio" class="alert" style="display:none"></div>
+        <form id="formBeneficio">
+          <div class="form-grid">
+            <div class="form-group">
+              <label for="bTipo">Tipo de Benefício *</label>
+              <select name="tipo" required id="bTipo">
+                <option value="">Selecione...</option>
+                <option value="Assistência Técnica">Assistência Técnica</option>
+                <option value="Capacitação / Curso">Capacitação / Curso</option>
+                <option value="Apoio Documental">Apoio Documental (DAP, CAF, etc.)</option>
+                <option value="Crédito Rural">Orientação para Crédito Rural</option>
+                <option value="Visita Técnica">Visita Técnica à Propriedade</option>
+                <option value="Representação">Representação Institucional</option>
+                <option value="Outro">Outro</option>
+              </select>
+            </div>
+          </div>
+          <div class="form-group" style="margin-top:18px">
+            <label for="bDescricao">Descrição detalhada *</label>
+            <textarea name="descricao" required rows="4" id="bDescricao" placeholder="Descreva sua solicitação com detalhes..."></textarea>
+          </div>
+          <button type="submit" class="btn btn-primary" style="margin-top:18px">Enviar Solicitação</button>
+        </form>
+      </div>
+
+      <div class="dash-card">
+        <h3 class="card-title">Minhas Solicitações</h3>
+        <div id="beneficios-list">
+          <div class="loading">Carregando...</div>
+        </div>
+      </div>
+    </div>
+
+  </main>
+</div>
+
+<script>
+const token = localStorage.getItem('token');
+const userId = parseInt(localStorage.getItem('userId'));
+const userRole = localStorage.getItem('userRole');
+
+if (!token) window.location.href = '/login.html';
+
+const urlParams = new URLSearchParams(window.location.search);
+const memberId = parseInt(urlParams.get('id')) || userId;
+
+if (userRole !== 'admin' && userId !== memberId) {
+  window.location.href = '/login.html';
+}
+
+const headers = { 'Authorization': `Bearer ${token}`, 'Content-Type': 'application/json' };
+
+// Ícones SVG reutilizados nos templates
+const ICO = {
+  family: '<svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>',
+  pin: '<svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg>',
+  clock: '<svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>',
+  calendar: '<svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 2v4"/><path d="M16 2v4"/><rect width="18" height="18" x="3" y="4" rx="2"/><path d="M3 10h18"/></svg>',
+  coins: '<svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="8" cy="8" r="6"/><path d="M18.09 10.37A6 6 0 1 1 10.34 18"/><path d="M7 6h1v4"/><path d="m16.71 13.88.7.71-2.82 2.82"/></svg>',
+  chat: '<svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7.9 20A9 9 0 1 0 4 16.1L2 22Z"/></svg>'
+};
+
+function logout() {
+  localStorage.clear();
+  window.location.href = '/login.html';
+}
+
+function switchTab(tab, el) {
+  document.querySelectorAll('.tab-content').forEach(t => t.classList.remove('active'));
+  document.querySelectorAll('.sidebar-link').forEach(l => l.classList.remove('active'));
+  document.getElementById('tab-' + tab).classList.add('active');
+  el.classList.add('active');
+  if (tab === 'anuidade') loadAnuidades();
+  if (tab === 'reunioes') loadPresencas();
+  if (tab === 'beneficios') loadBeneficios();
+  return false;
+}
+
+function fmtDate(d) {
+  if (!d) return '--';
+  const [y,m,day] = d.split('-');
+  return `${day}/${m}/${y}`;
+}
+
+// Carregar perfil
+async function loadPerfil() {
+  const resp = await fetch(`/api/membros/${memberId}`, { headers });
+  const m = await resp.json();
+  document.getElementById('headerNome').textContent = m.nome;
+  document.getElementById('memberNome').textContent = m.nome;
+  document.getElementById('memberAvatar').textContent = m.nome.charAt(0).toUpperCase();
+  document.getElementById('memberFamilia').innerHTML = ICO.family + ' ' + m.familia;
+  document.getElementById('memberRegiao').innerHTML = ICO.pin + ' ' + m.regiao;
+  document.getElementById('memberStatus').textContent = m.status === 'ativo' ? 'Ativo' : m.status;
+  document.getElementById('memberStatus').className = 'tag ' + (m.status === 'ativo' ? 'tag-success' : 'tag-warning');
+
+  document.getElementById('pNome').value = m.nome;
+  document.getElementById('pCpf').value = m.cpf;
+  document.getElementById('pRg').value = m.rg || '';
+  document.getElementById('pNascimento').value = m.data_nascimento || '';
+  document.getElementById('pTelefone').value = m.telefone || '';
+  document.getElementById('pEmail').value = m.email;
+  document.getElementById('pFamilia').value = m.familia;
+  document.getElementById('pEndereco').value = m.endereco || '';
+  document.getElementById('pDataInscricao').value = fmtDate(m.data_inscricao);
+
+  const sel = document.getElementById('pRegiao');
+  const regioes = await fetch('/api/regioes').then(r => r.json());
+  regioes.forEach(r => {
+    const opt = document.createElement('option');
+    opt.value = r; opt.textContent = r;
+    if (r === m.regiao) opt.selected = true;
+    sel.appendChild(opt);
+  });
+}
+
+document.getElementById('formPerfil').addEventListener('submit', async function(e) {
+  e.preventDefault();
+  const data = Object.fromEntries(new FormData(this));
+  const al = document.getElementById('alertPerfil');
+  const resp = await fetch(`/api/membros/${memberId}`, {
+    method: 'PUT', headers, body: JSON.stringify(data)
+  });
+  if (resp.ok) {
+    al.className = 'alert alert-success'; al.textContent = 'Dados atualizados com sucesso!';
+    al.style.display = 'block';
+    loadPerfil();
+  } else {
+    al.className = 'alert alert-danger'; al.textContent = 'Erro ao salvar.';
+    al.style.display = 'block';
+  }
+});
+
+// Anuidades
+async function loadAnuidades() {
+  const resp = await fetch(`/api/membros/${memberId}/anuidades`, { headers });
+  const list = await resp.json();
+  const el = document.getElementById('anuidades-list');
+  if (!list.length) { el.innerHTML = '<p class="empty-msg">Nenhuma anuidade registrada.</p>'; return; }
+  el.innerHTML = list.map(a => `
+    <div class="anuidade-item ${a.status}">
+      <div class="anuidade-info">
+        <strong>Anuidade ${a.ano}</strong>
+        <span class="valor">R$ ${parseFloat(a.valor).toFixed(2)}</span>
+      </div>
+      <div class="anuidade-status">
+        ${a.status === 'pago'
+          ? `<span class="badge badge-success">Pago em ${fmtDate(a.data_pagamento)}</span>`
+          : `<span class="badge badge-warning">Pendente</span>
+             <button class="btn btn-sm btn-primary" onclick="pagarAnuidade(${a.id}, ${a.ano})">Registrar Pagamento</button>`
+        }
+      </div>
+    </div>
+  `).join('');
+}
+
+async function pagarAnuidade(id, ano) {
+  const al = document.getElementById('alertAnuidade');
+  if (!confirm(`Confirma o registro de pagamento da anuidade ${ano}?`)) return;
+  const resp = await fetch(`/api/membros/${memberId}/anuidades/pagar`, {
+    method: 'POST', headers, body: JSON.stringify({ ano })
+  });
+  const r = await resp.json();
+  al.className = 'alert alert-success';
+  al.textContent = r.mensagem;
+  al.style.display = 'block';
+  loadAnuidades();
+}
+
+// Presenças
+async function loadPresencas() {
+  const [presResp, reunResp] = await Promise.all([
+    fetch(`/api/membros/${memberId}/presencas`, { headers }),
+    fetch('/api/reunioes', { headers })
+  ]);
+  const presencas = await presResp.json();
+  const reunioes = await reunResp.json();
+  const hoje = new Date().toISOString().split('T')[0];
+
+  const histEl = document.getElementById('presencas-list');
+  const passadas = presencas.filter(p => p.data <= hoje);
+  if (!passadas.length) {
+    histEl.innerHTML = '<p class="empty-msg">Nenhuma reunião registrada ainda.</p>';
+  } else {
+    const presentes = passadas.filter(p => p.presente).length;
+    const total = passadas.length;
+    histEl.innerHTML = `
+      <div class="presenca-stats">
+        <div class="ps-item">
+          <strong>${presentes}</strong><span>Presenças</span>
+        </div>
+        <div class="ps-item">
+          <strong>${total - presentes}</strong><span>Faltas</span>
+        </div>
+        <div class="ps-item">
+          <strong>${total > 0 ? Math.round(presentes/total*100) : 0}%</strong><span>Frequência</span>
+        </div>
+      </div>
+      <div class="table-wrap">
+      <table class="data-table">
+        <thead><tr><th>Reunião</th><th>Data</th><th>Horário</th><th>Local</th><th>Presença</th></tr></thead>
+        <tbody>
+          ${passadas.map(p => `
+            <tr>
+              <td>${p.titulo}</td>
+              <td>${fmtDate(p.data)}</td>
+              <td>${p.horario}</td>
+              <td>${p.local || '--'}</td>
+              <td>${p.presente ? '<span class="badge badge-success">Presente</span>' : '<span class="badge badge-danger">Falta</span>'}</td>
+            </tr>
+          `).join('')}
+        </tbody>
+      </table>
+      </div>`;
+  }
+
+  const proxEl = document.getElementById('reunioes-proximas');
+  const proximas = reunioes.filter(r => r.data >= hoje);
+  if (!proximas.length) {
+    proxEl.innerHTML = '<p class="empty-msg">Nenhuma reunião agendada.</p>';
+  } else {
+    proxEl.innerHTML = proximas.map(r => `
+      <div class="reuniao-card">
+        <div class="reuniao-date">${fmtDate(r.data)}</div>
+        <div class="reuniao-info">
+          <strong>${r.titulo}</strong>
+          <span>${ICO.clock} ${r.horario} &nbsp; ${ICO.pin} ${r.local || 'A definir'}</span>
+          ${r.descricao ? `<p>${r.descricao}</p>` : ''}
+        </div>
+      </div>
+    `).join('');
+  }
+}
+
+// Benefícios
+async function loadBeneficios() {
+  const resp = await fetch(`/api/membros/${memberId}/beneficios`, { headers });
+  const list = await resp.json();
+  const el = document.getElementById('beneficios-list');
+  if (!list.length) { el.innerHTML = '<p class="empty-msg">Nenhuma solicitação realizada.</p>'; return; }
+
+  const statusColors = { pendente: 'warning', aprovado: 'success', negado: 'danger', concluido: 'info' };
+  const taxaColors = { isento: 'success', pendente: 'warning', pago: 'success' };
+
+  el.innerHTML = list.map(b => `
+    <div class="beneficio-card status-${b.status}">
+      <div class="beneficio-header">
+        <div>
+          <strong>${b.tipo}</strong>
+          <span class="badge badge-${statusColors[b.status] || 'secondary'}">${b.status.toUpperCase()}</span>
+        </div>
+        <small>Solicitado em ${fmtDate(b.data_solicitacao)}</small>
+      </div>
+      <p class="beneficio-desc">${b.descricao}</p>
+      ${b.data_agendada ? `
+        <div class="beneficio-agenda">
+          <span>${ICO.calendar} Agendado: <strong>${fmtDate(b.data_agendada)}</strong></span>
+          <span>${ICO.clock} Horário: <strong>${b.horario_agendado || '--'}</strong></span>
+        </div>` : ''}
+      ${b.taxa > 0 ? `
+        <div class="taxa-info">
+          <span>${ICO.coins} Taxa: <strong>R$ ${parseFloat(b.taxa).toFixed(2)}</strong></span>
+          <span class="badge badge-${taxaColors[b.status_taxa] || 'secondary'}">${b.status_taxa === 'isento' ? 'Isento' : b.status_taxa === 'pago' ? 'Pago' : 'Pendente'}</span>
+          ${b.status_taxa === 'pendente' ? `<button class="btn btn-sm btn-primary" onclick="pagarTaxa(${b.id})">Registrar Pagamento</button>` : ''}
+        </div>` : ''}
+      ${b.observacao_admin ? `<div class="obs-admin">${ICO.chat} <strong>Resposta:</strong> ${b.observacao_admin}</div>` : ''}
+    </div>
+  `).join('');
+}
+
+async function pagarTaxa(beneficioId) {
+  const al = document.getElementById('alertBeneficio');
+  if (!confirm('Confirma o registro de pagamento da taxa?')) return;
+  const resp = await fetch(`/api/beneficios/${beneficioId}/pagar-taxa`, { method: 'POST', headers });
+  const r = await resp.json();
+  al.className = 'alert alert-success';
+  al.textContent = r.mensagem;
+  al.style.display = 'block';
+  loadBeneficios();
+}
+
+document.getElementById('formBeneficio').addEventListener('submit', async function(e) {
+  e.preventDefault();
+  const al = document.getElementById('alertBeneficio');
+  const data = Object.fromEntries(new FormData(this));
+  const resp = await fetch(`/api/membros/${memberId}/beneficios`, {
+    method: 'POST', headers, body: JSON.stringify(data)
+  });
+  const r = await resp.json();
+  if (resp.ok) {
+    al.className = 'alert alert-success';
+    al.textContent = 'Solicitação enviada! A secretaria entrará em contato em breve.';
+    al.style.display = 'block';
+    this.reset();
+    loadBeneficios();
+  } else {
+    al.className = 'alert alert-danger';
+    al.textContent = r.error;
+    al.style.display = 'block';
+  }
+});
+
+loadPerfil();
+</script>
+</body>
+</html>
